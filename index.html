@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hat Yai Trip Itinerary (16 - 20 September 2026)</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+        @custom-variant dark (&:is(.dark *));
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+        body { 
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif; 
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-3 md:p-8 transition-colors duration-300">
+    <!-- Welcome Landing Overlay -->
+    <div id="welcome-screen" class="fixed inset-0 z-50 bg-gradient-to-br from-emerald-950 via-teal-900 to-slate-900 text-white flex flex-col items-center justify-center p-4 transition-all duration-500">
+        <div class="absolute inset-0 bg-cover bg-center opacity-25 pointer-events-none" style="background-image: url('https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?q=80&w=1200&auto=format&fit=crop');"></div>
+        <div class="relative z-10 max-w-md w-full bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 text-center shadow-2xl">
+            <span class="text-4xl mb-3 block animate-bounce">&#127481;&#127469; &#128762; &#129381; &#128024; &#10024;</span>
+            <span class="bg-emerald-500/30 text-emerald-200 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">Getaway Countdown Active</span>
+            <h1 class="text-3xl md:text-4xl font-extrabold mt-3 mb-2 tracking-tight">Hatyai! HERE WE COME! &#127796;</h1>
+            <p class="text-emerald-100 text-sm mb-6 font-medium">Malaysia to Hat Yai Itinerary<br><i class="fa-regular fa-calendar-days mr-1.5 mt-1 inline-block"></i>16 September 2026 – 20 September 2026</p>
+            <button onclick="enterItinerary()" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg transform active:scale-95 transition-all cursor-pointer text-base flex items-center justify-center gap-2">
+                <span>Let's Go! &#127481;&#127469;</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto relative">
+        <!-- Header -->
+        <header class="relative bg-gradient-to-r from-emerald-600 to-teal-700 text-white p-6 rounded-2xl shadow-lg mb-6">
+            
+            <!-- Dark Mode Toggle -->
+            <button onclick="toggleDarkMode()" class="absolute top-4 right-4 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-sm border border-white/10 cursor-pointer z-10" aria-label="Toggle Dark Mode">
+                <i id="theme-icon" class="fa-solid fa-moon"></i>
+            </button>
+
+            <!-- Live Countdown Timer -->
+            <div class="mb-5 bg-white/10 backdrop-blur-md px-4 py-3 rounded-xl border border-white/20 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm mt-8 md:mt-0">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-hourglass-half text-emerald-300 animate-pulse"></i>
+                    <span class="font-medium">Countdown to Hat Yai Getaway:</span>
+                </div>
+                <div id="countdown-timer" class="flex items-center gap-2 font-bold bg-black/20 px-3 py-1.5 rounded-lg border border-white/10">
+                    <div><span id="cd-days">00</span><span class="text-xs font-normal opacity-80 ml-0.5">Days</span></div>
+                    <span class="opacity-60">:</span>
+                    <div><span id="cd-hours">00</span><span class="text-xs font-normal opacity-80 ml-0.5">Hrs</span></div>
+                    <span class="opacity-60">:</span>
+                    <div><span id="cd-mins">00</span><span class="text-xs font-normal opacity-80 ml-0.5">Mins</span></div>
+                    <span class="opacity-60">:</span>
+                    <div><span id="cd-secs">00</span><span class="text-xs font-normal opacity-80 ml-0.5">Secs</span></div>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <span class="bg-emerald-500/30 text-emerald-100 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">&#127481;&#127469; Hat Yai Getaway</span>
+                    <h1 class="text-2xl md:text-3xl font-bold mt-2">Malaysia to Hat Yai Itinerary &#128762;</h1>
+                    <p class="text-emerald-100 text-sm mt-1 flex flex-wrap items-center gap-3">
+                        <span><i class="fa-regular fa-calendar-days mr-1.5"></i>16 September 2026 – 20 September 2026</span>
+                        <span><i class="fa-solid fa-hotel mr-1.5"></i>W3 Hotel</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Page Navigation Tabs -->
+            <div class="flex flex-wrap gap-2 mt-6 pt-4 border-t border-white/10" id="nav-tabs">
+                <button onclick="switchPage(1)" class="page-tab px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-white text-emerald-800 dark:bg-slate-800 dark:text-emerald-400 shadow" data-page="1">Day 1 (16 Sep)</button>
+                <button onclick="switchPage(2)" class="page-tab px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-emerald-800/50 text-white hover:bg-emerald-800/80" data-page="2">Day 2 (17 Sep)</button>
+                <button onclick="switchPage(3)" class="page-tab px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-emerald-800/50 text-white hover:bg-emerald-800/80" data-page="3">Day 3 (18 Sep)</button>
+                <button onclick="switchPage(4)" class="page-tab px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-emerald-800/50 text-white hover:bg-emerald-800/80" data-page="4">Day 4 (19 Sep)</button>
+                <button onclick="switchPage(5)" class="page-tab px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-emerald-800/50 text-white hover:bg-emerald-800/80" data-page="5">Day 5 (20 Sep)</button>
+                <button onclick="switchPage('checklist')" class="page-tab px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-emerald-800/50 text-white hover:bg-emerald-800/80" data-page="checklist"><i class="fa-solid fa-list-check mr-1.5"></i> Checklist</button>
+            </div>
+        </header>
+
+        <!-- Pages Container -->
+        <main>
+            <!-- PAGE 1: DAY 1 -->
+            <div id="page-1" class="page-content space-y-3">
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100 border-b dark:border-slate-700 pb-3 mb-4 flex items-center justify-between">
+                        <span><i class="fa-solid fa-plane-departure text-emerald-600 dark:text-emerald-400 mr-2"></i> Day 1: Arrival & City Evening &#127481;&#127469;</span>
+                        <span class="text-xs font-normal text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700 px-2.5 py-1 rounded-md">Wed, 16 Sep 2026</span>
+                    </h2>
+                    
+                    <div class="space-y-2">
+                        <!-- Item 1 -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">11:30 AM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100">KLIA Terminal 2 (KUL) <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Sepang</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Airport check-in & security (Arrive 3 hours before flight)</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-plane text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Flight Time: 1h 10m</span>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">02:55 PM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100">Thai AirAsia Flight (KUL -> HDY) <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Flight</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Outbound flight to Hat Yai</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-clock text-amber-600 dark:text-amber-500 mr-1.5"></i> Time Difference: ~1 hour back (GMT+07)</span>
+                        </div>
+
+                        <!-- Item 3 -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">03:05 PM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><a href="https://www.google.com/maps/search/?api=1&query=Hat+Yai+International+Airport" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">Hat Yai International Airport (HDY)</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Hat Yai</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Arrival & immigration</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-car text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Grab Travel Time: ~20-30 mins</span>
+                            <span><i class="fa-solid fa-route text-slate-400 dark:text-slate-500 mr-1.5"></i> Distance: ~15 km</span>
+                        </div>
+
+                        <!-- Item 4 (W3 Hotel Check-in) -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-emerald-50/50 dark:bg-emerald-900/20 border border-emerald-200/60 dark:border-emerald-800/40">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">03:45 PM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><i class="fa-solid fa-hotel text-emerald-600 dark:text-emerald-400 mr-1.5"></i> <a href="https://www.google.com/maps/search/?api=1&query=W3+Hotel+Hat+Yai" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">W3 Hotel Check-in</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Hat Yai City Centre</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Hotel check-in and unpacking</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition: Hotel -> First Destination -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-car text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Grab Travel Time (Hotel -> First Stop): ~10 mins</span>
+                            <span><i class="fa-solid fa-route text-slate-400 dark:text-slate-500 mr-1.5"></i> Distance: ~3 km</span>
+                        </div>
+
+                        <!-- Item 5 -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">06:00 PM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><a href="https://www.google.com/maps/search/?api=1&query=Tumrub+Suki+Khao+Pad+Pu+Hatyai" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">Tumrub Suki Khao Pad Pu @ Hatyai</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Hat Yai Subdistrict</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Sit-down dinner featuring local Suki and Crab Fried Rice (First Destination)</p>
+                                <p class="text-xs text-emerald-700 dark:text-emerald-400 font-medium mt-1.5"><i class="fa-regular fa-clock mr-1"></i> Hours: 4:00 PM – 11:00 PM (Open Daily)</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-car text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Grab Travel Time: ~10-15 mins</span>
+                            <span><i class="fa-solid fa-route text-slate-400 dark:text-slate-500 mr-1.5"></i> Distance: ~5 km</span>
+                        </div>
+
+                        <!-- Item 6 (Last Destination) -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">08:00 PM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><a href="https://www.google.com/maps/search/?api=1&query=Asean+Night+Market+Hat+Yai" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">Asean Night Market</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Hat Yai Subdistrict</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Evening walk & explore (Last Destination)</p>
+                                <p class="text-xs text-emerald-700 dark:text-emerald-400 font-medium mt-1.5"><i class="fa-regular fa-clock mr-1"></i> Hours: 4:30 PM – 10:00 PM (Closed Mon & Tue)</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition: Last Destination -> Hotel -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-car text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Grab Travel Time (Last Stop -> Hotel): ~10 mins</span>
+                            <span><i class="fa-solid fa-route text-slate-400 dark:text-slate-500 mr-1.5"></i> Distance: ~4 km (Return to W3 Hotel)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 2: DAY 2 -->
+            <div id="page-2" class="page-content space-y-3 hidden">
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100 border-b dark:border-slate-700 pb-3 mb-4 flex items-center justify-between">
+                        <span><i class="fa-solid fa-utensils text-emerald-600 dark:text-emerald-400 mr-2"></i> Day 2: Noodles, Culture & Cafes &#127836;</span>
+                        <span class="text-xs font-normal text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700 px-2.5 py-1 rounded-md">Thu, 17 Sep 2026</span>
+                    </h2>
+                    
+                    <div class="space-y-2">
+                        <!-- Hotel Departure -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-emerald-50/50 dark:bg-emerald-900/20 border border-emerald-200/60 dark:border-emerald-800/40">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">07:30 AM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><i class="fa-solid fa-hotel text-emerald-600 dark:text-emerald-400 mr-1.5"></i> <a href="https://www.google.com/maps/search/?api=1&query=W3+Hotel+Hat+Yai" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">W3 Hotel Departure</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Hat Yai City Centre</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Morning departure from hotel</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition: Hotel -> First Destination -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-car text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Grab Travel Time (Hotel -> First Stop): ~10 mins</span>
+                            <span><i class="fa-solid fa-route text-slate-400 dark:text-slate-500 mr-1.5"></i> Distance: ~3 km</span>
+                        </div>
+
+                        <!-- Item 1 -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">08:00 AM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><a href="https://www.google.com/maps/search/?api=1&query=Cheng+Long+Noodles+Hat+Yai" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">Cheng Long Noodles</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Hat Yai Subdistrict</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Traditional breakfast noodles (First Destination)</p>
+                                <p class="text-xs text-emerald-700 dark:text-emerald-400 font-medium mt-1.5"><i class="fa-regular fa-clock mr-1"></i> Hours: 7:00 AM – 3:00 PM (Open Daily)</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-car text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Grab Travel Time: ~20-25 mins</span>
+                            <span><i class="fa-solid fa-route text-slate-400 dark:text-slate-500 mr-1.5"></i> Distance: ~12 km</span>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">10:00 AM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><a href="https://www.google.com/maps/search/?api=1&query=Copperwood+Cafe+Hat+Yai" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">Copperwood Cafe</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Ban Phru</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Specialty coffee, pastries, brunch</p>
+                                <p class="text-xs text-emerald-700 dark:text-emerald-400 font-medium mt-1.5"><i class="fa-regular fa-clock mr-1"></i> Hours: 9:00 AM – 6:00 PM (Open Daily)</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-car text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Grab Travel Time: ~20 mins</span>
+                            <span><i class="fa-solid fa-route text-slate-400 dark:text-slate-500 mr-1.5"></i> Distance: ~10 km</span>
+                        </div>
+
+                        <!-- Item 3 -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">11:30 AM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><a href="https://www.google.com/maps/search/?api=1&query=Wat+Hat+Yai+Nai" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">Wat Hat Yai Nai</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Hat Yai Subdistrict</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Massive 35m reclining Buddha</p>
+                                <p class="text-xs text-emerald-700 dark:text-emerald-400 font-medium mt-1.5"><i class="fa-regular fa-clock mr-1"></i> Hours: 8:00 AM – 5:00 PM (Open Daily)</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-car text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Grab Travel Time: ~10 mins</span>
+                            <span><i class="fa-solid fa-route text-slate-400 dark:text-slate-500 mr-1.5"></i> Distance: ~3 km</span>
+                        </div>
+
+                        <!-- Item 4 -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">01:00 PM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><a href="https://www.google.com/maps/search/?api=1&query=Porkleg+Tuateaw+Samchai+Hat+Yai" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">Porkleg Tuateaw @ Samchai</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Hat Yai Subdistrict</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Tender braised pork knuckle, crispy roasted pork</p>
+                                <p class="text-xs text-emerald-700 dark:text-emerald-400 font-medium mt-1.5"><i class="fa-regular fa-clock mr-1"></i> Hours: 8:00 AM – 3:30 PM (Open Daily)</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-car text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Grab Travel Time: ~15 mins</span>
+                            <span><i class="fa-solid fa-route text-slate-400 dark:text-slate-500 mr-1.5"></i> Distance: ~6 km</span>
+                        </div>
+
+                        <!-- Item 5 -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">03:30 PM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><a href="https://www.google.com/maps/search/?api=1&query=Cheewit+Cheeva+Hat+Yai" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">Alive Cheewit Cheeva</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Khlong Hae</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Bingsu, Thai milk tea shaved ice, desserts</p>
+                                <p class="text-xs text-emerald-700 dark:text-emerald-400 font-medium mt-1.5"><i class="fa-regular fa-clock mr-1"></i> Hours: 11:00 AM – 10:00 PM (Open Daily)</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-car text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Grab Travel Time: ~15 mins</span>
+                            <span><i class="fa-solid fa-route text-slate-400 dark:text-slate-500 mr-1.5"></i> Distance: ~5 km</span>
+                        </div>
+
+                        <!-- Item 6 -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">06:00 PM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><a href="https://www.google.com/maps/search/?api=1&query=By+Hatyai+Grill+and+Chill" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">By Hatyai Grill & Chill</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Hat Yai Subdistrict</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Grilled meats, Thai chill dining</p>
+                                <p class="text-xs text-emerald-700 dark:text-emerald-400 font-medium mt-1.5"><i class="fa-regular fa-clock mr-1"></i> Hours: 5:00 PM – 12:00 AM (Open Daily)</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-car text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Grab Travel Time: ~5-10 mins</span>
+                            <span><i class="fa-solid fa-route text-slate-400 dark:text-slate-500 mr-1.5"></i> Distance: ~3 km</span>
+                        </div>
+
+                        <!-- Item 7 (Last Destination) -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">08:00 PM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><a href="https://www.google.com/maps/search/?api=1&query=Greenway+Night+Market+Hat+Yai" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">Greenway Night Market</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Hat Yai Subdistrict</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Evening shopping walk & explore (Last Destination)</p>
+                                <p class="text-xs text-emerald-700 dark:text-emerald-400 font-medium mt-1.5"><i class="fa-regular fa-clock mr-1"></i> Hours: 4:00 PM – 10:00 PM (Closed Mon & Tue)</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition: Last Destination -> Hotel -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-car text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Grab Travel Time (Last Stop -> Hotel): ~10 mins</span>
+                            <span><i class="fa-solid fa-route text-slate-400 dark:text-slate-500 mr-1.5"></i> Distance: ~4 km (Return to W3 Hotel)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 3: DAY 3 -->
+            <div id="page-3" class="page-content space-y-3 hidden">
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100 border-b dark:border-slate-700 pb-3 mb-4 flex items-center justify-between">
+                        <span><i class="fa-solid fa-store text-emerald-600 dark:text-emerald-400 mr-2"></i> Day 3: Markets & Floating Village &#128758;</span>
+                        <span class="text-xs font-normal text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700 px-2.5 py-1 rounded-md">Fri, 18 Sep 2026</span>
+                    </h2>
+                    
+                    <div class="space-y-2">
+                        <!-- Hotel Departure -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-emerald-50/50 dark:bg-emerald-900/20 border border-emerald-200/60 dark:border-emerald-800/40">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">08:30 AM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><i class="fa-solid fa-hotel text-emerald-600 dark:text-emerald-400 mr-1.5"></i> <a href="https://www.google.com/maps/search/?api=1&query=W3+Hotel+Hat+Yai" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">W3 Hotel Departure</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Hat Yai City Centre</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Morning departure from hotel</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition: Hotel -> First Destination -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-car text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Grab Travel Time (Hotel -> First Stop): ~10 mins</span>
+                            <span><i class="fa-solid fa-route text-slate-400 dark:text-slate-500 mr-1.5"></i> Distance: ~3 km</span>
+                        </div>
+
+                        <!-- Item 1 -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">09:00 AM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><a href="https://www.google.com/maps/search/?api=1&query=Kokiang+Beef+Pork+Noodle+Hat+Yai" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">Kokiang Beef & Pork Noodle</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Hat Yai Subdistrict</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Beef & Pork noodles (First Destination)</p>
+                                <p class="text-xs text-emerald-700 dark:text-emerald-400 font-medium mt-1.5"><i class="fa-regular fa-clock mr-1"></i> Hours: 7:30 AM – 3:30 PM (Open Daily)</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-car text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Grab Travel Time: ~10 mins</span>
+                            <span><i class="fa-solid fa-route text-slate-400 dark:text-slate-500 mr-1.5"></i> Distance: ~3 km</span>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">10:30 AM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><a href="https://www.google.com/maps/search/?api=1&query=Kim+Yong+Market+Hat+Yai" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">Kim Yong Market</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Hat Yai City Centre</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Local dried goods, snacks, nuts, fruits</p>
+                                <p class="text-xs text-emerald-700 dark:text-emerald-400 font-medium mt-1.5"><i class="fa-regular fa-clock mr-1"></i> Hours: 8:00 AM – 5:00 PM (Open Daily)</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-car text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Grab Travel Time: ~10 mins</span>
+                            <span><i class="fa-solid fa-route text-slate-400 dark:text-slate-500 mr-1.5"></i> Distance: ~2 km</span>
+                        </div>
+
+                        <!-- Item 3 -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">01:00 PM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><a href="https://www.google.com/maps/search/?api=1&query=Jiraphat+Crispy+Pork+Hat+Yai" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">Jiraphat Crispy Pork</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Hat Yai Subdistrict</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Crispy pork belly (Moo Krob), rice/noodles</p>
+                                <p class="text-xs text-emerald-700 dark:text-emerald-400 font-medium mt-1.5"><i class="fa-regular fa-clock mr-1"></i> Hours: 8:00 AM – 4:00 PM (Open Daily)</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-car text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Grab Travel Time: ~15 mins</span>
+                            <span><i class="fa-solid fa-route text-slate-400 dark:text-slate-500 mr-1.5"></i> Distance: ~6 km</span>
+                        </div>
+
+                        <!-- Item 4 -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">03:30 PM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><a href="https://www.google.com/maps/search/?api=1&query=Seaverse+Cafe+Hat+Yai" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">Seaverse Cafe</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Khlong Hae</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Scenic lake views, drinks, pastries, photo spots</p>
+                                <p class="text-xs text-emerald-700 dark:text-emerald-400 font-medium mt-1.5"><i class="fa-regular fa-clock mr-1"></i> Hours: 10:00 AM – 8:00 PM (Open Daily)</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-car text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Grab Travel Time: ~5 mins</span>
+                            <span><i class="fa-solid fa-route text-slate-400 dark:text-slate-500 mr-1.5"></i> Distance: ~2 km</span>
+                        </div>
+
+                        <!-- Item 5 (Last Destination) -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">05:00 PM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><a href="https://www.google.com/maps/search/?api=1&query=Klong+Hae+Floating+Market" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">Klong Hae Floating Market</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Khlong Hae</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Boat noodles in coconut shells, local Thai snacks (Last Destination)</p>
+                                <p class="text-xs text-emerald-700 dark:text-emerald-400 font-medium mt-1.5"><i class="fa-regular fa-clock mr-1"></i> Hours: 3:00 PM – 9:00 PM (Open Fri, Sat & Sun only)</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition: Last Destination -> Hotel -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-car text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Grab Travel Time (Last Stop -> Hotel): ~15 mins</span>
+                            <span><i class="fa-solid fa-route text-slate-400 dark:text-slate-500 mr-1.5"></i> Distance: ~5 km (Return to W3 Hotel)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 4: DAY 4 -->
+            <div id="page-4" class="page-content space-y-3 hidden">
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100 border-b dark:border-slate-700 pb-3 mb-4 flex items-center justify-between">
+                        <span><i class="fa-solid fa-bag-shopping text-emerald-600 dark:text-emerald-400 mr-2"></i> Day 4: Temples, Malls & Big C Extra &#128717;&#65039;</span>
+                        <span class="text-xs font-normal text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700 px-2.5 py-1 rounded-md">Sat, 19 Sep 2026</span>
+                    </h2>
+                    
+                    <div class="space-y-2">
+                        <!-- Hotel Departure -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-emerald-50/50 dark:bg-emerald-900/20 border border-emerald-200/60 dark:border-emerald-800/40">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">08:30 AM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><i class="fa-solid fa-hotel text-emerald-600 dark:text-emerald-400 mr-1.5"></i> <a href="https://www.google.com/maps/search/?api=1&query=W3+Hotel+Hat+Yai" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">W3 Hotel Departure</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Hat Yai City Centre</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Morning departure from hotel</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition: Hotel -> First Destination -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-car text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Grab Travel Time (Hotel -> First Stop): ~5-10 mins</span>
+                            <span><i class="fa-solid fa-route text-slate-400 dark:text-slate-500 mr-1.5"></i> Distance: ~2 km</span>
+                        </div>
+
+                        <!-- Item 1 -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">09:00 AM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><a href="https://www.google.com/maps/search/?api=1&query=Joke+Gak+Moo+Hat+Yai" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">Joke Gak Moo & Aharn Jan Diew</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Hat Yai Subdistrict</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Pork congee (Joke), quick morning breakfast (First Destination)</p>
+                                <p class="text-xs text-emerald-700 dark:text-emerald-400 font-medium mt-1.5"><i class="fa-regular fa-clock mr-1"></i> Hours: 6:00 AM – 1:00 PM (Open Daily)</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-car text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Grab Travel Time: ~10 mins</span>
+                            <span><i class="fa-solid fa-route text-slate-400 dark:text-slate-500 mr-1.5"></i> Distance: ~3 km</span>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">10:30 AM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><a href="https://www.google.com/maps/search/?api=1&query=Wat+Khok+Saman+Khun+Hat+Yai" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">Wat Khok Saman Khun Temple</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Hat Yai Subdistrict</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Reclining Buddha, cultural architecture</p>
+                                <p class="text-xs text-emerald-700 dark:text-emerald-400 font-medium mt-1.5"><i class="fa-regular fa-clock mr-1"></i> Hours: 8:00 AM – 5:00 PM (Open Daily)</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-car text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Grab Travel Time: ~10 mins</span>
+                            <span><i class="fa-solid fa-route text-slate-400 dark:text-slate-500 mr-1.5"></i> Distance: ~3 km</span>
+                        </div>
+
+                        <!-- Item 3 -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">01:00 PM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><a href="https://www.google.com/maps/search/?api=1&query=Nanyuan+Noodle+Restaurant+Hat+Yai" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">Nanyuan Noodle Restaurant</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Hat Yai Subdistrict</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Wanton mee, breakfast noodles</p>
+                                <p class="text-xs text-emerald-700 dark:text-emerald-400 font-medium mt-1.5"><i class="fa-regular fa-clock mr-1"></i> Hours: 7:00 AM – 3:00 PM (Open Daily)</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-car text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Grab Travel Time: ~10-15 mins</span>
+                            <span><i class="fa-solid fa-route text-slate-400 dark:text-slate-500 mr-1.5"></i> Distance: ~5 km</span>
+                        </div>
+
+                        <!-- Item 4 -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">02:30 PM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><a href="https://www.google.com/maps/search/?api=1&query=Central+Festival+Hatyai" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">Central Festival Hatyai</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Kho Hong</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Retail shopping & mall exploration</p>
+                                <p class="text-xs text-emerald-700 dark:text-emerald-400 font-medium mt-1.5"><i class="fa-regular fa-clock mr-1"></i> Hours: 10:00 AM – 9:00 PM (Open Daily)</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-walking text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Travel Time: 0 mins</span>
+                            <span><i class="fa-solid fa-building text-slate-400 dark:text-slate-500 mr-1.5"></i> Inside Mall</span>
+                        </div>
+
+                        <!-- Item 5 -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">04:00 PM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><a href="https://www.google.com/maps/search/?api=1&query=After+You+Central+Festival+Hat+Yai" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">After You (Central Festival)</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Kho Hong</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Shibuya Honey Toast, Kakigori desserts</p>
+                                <p class="text-xs text-emerald-700 dark:text-emerald-400 font-medium mt-1.5"><i class="fa-regular fa-clock mr-1"></i> Hours: 10:00 AM – 9:30 PM (Open Daily)</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-car text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Grab Travel Time: ~10-15 mins</span>
+                            <span><i class="fa-solid fa-route text-slate-400 dark:text-slate-500 mr-1.5"></i> Distance: ~4 km</span>
+                        </div>
+
+                        <!-- Item 6 -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">05:30 PM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><a href="https://www.google.com/maps/search/?api=1&query=Somtamchaba+Hat+Yai" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">Somtamchaba</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Hat Yai City Centre</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Salt-grilled ruby fish, Som Tum, fried chicken</p>
+                                <p class="text-xs text-emerald-700 dark:text-emerald-400 font-medium mt-1.5"><i class="fa-regular fa-clock mr-1"></i> Hours: 11:00 AM – 9:00 PM (Open Daily)</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-car text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Grab Travel Time: ~10 mins</span>
+                            <span><i class="fa-solid fa-route text-slate-400 dark:text-slate-500 mr-1.5"></i> Distance: ~4 km</span>
+                        </div>
+
+                        <!-- Item 7 (Last Destination) -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">07:00 PM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><a href="https://www.google.com/maps/search/?api=1&query=Big+C+Extra+Hatyai" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">Big C Extra Hatyai</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Kho Hong</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Hypermarket shopping, local snacks & souvenirs (Last Destination)</p>
+                                <p class="text-xs text-emerald-700 dark:text-emerald-400 font-medium mt-1.5"><i class="fa-regular fa-clock mr-1"></i> Hours: 9:00 AM – 10:00 PM (Open Daily)</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition: Last Destination -> Hotel -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-car text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Grab Travel Time (Last Stop -> Hotel): ~10 mins</span>
+                            <span><i class="fa-solid fa-route text-slate-400 dark:text-slate-500 mr-1.5"></i> Distance: ~4 km (Return to W3 Hotel)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 5: DAY 5 -->
+            <div id="page-5" class="page-content space-y-3 hidden">
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100 border-b dark:border-slate-700 pb-3 mb-4 flex items-center justify-between">
+                        <span><i class="fa-solid fa-plane-arrival text-emerald-600 dark:text-emerald-400 mr-2"></i> Day 5: Morning Market & Departure &#9992;&#65039;</span>
+                        <span class="text-xs font-normal text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700 px-2.5 py-1 rounded-md">Sun, 20 Sep 2026</span>
+                    </h2>
+                    
+                    <div class="space-y-2">
+                        <!-- Item 1 (W3 Hotel Check-out) -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-emerald-50/50 dark:bg-emerald-900/20 border border-emerald-200/60 dark:border-emerald-800/40">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">08:00 AM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><i class="fa-solid fa-hotel text-emerald-600 dark:text-emerald-400 mr-1.5"></i> <a href="https://www.google.com/maps/search/?api=1&query=W3+Hotel+Hat+Yai" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">W3 Hotel Check-out</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Hat Yai City Centre</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Hotel check-out and luggage storing before heading out (First Departure)</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition: Hotel -> First Destination -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-car text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Grab Travel Time (Hotel -> First Stop): ~5 mins</span>
+                            <span><i class="fa-solid fa-route text-slate-400 dark:text-slate-500 mr-1.5"></i> Distance: ~1 km</span>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">08:30 AM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><a href="https://www.google.com/maps/search/?api=1&query=Chue+Chang+Morning+Market+Hat+Yai" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">Chue Chang Morning Market Stalls</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Hat Yai City Centre</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Local Thai breakfast bites, dim sum, coffee (First Destination)</p>
+                                <p class="text-xs text-emerald-700 dark:text-emerald-400 font-medium mt-1.5"><i class="fa-regular fa-clock mr-1"></i> Hours: 6:00 AM – 12:00 PM (Open Daily)</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-car text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Grab Travel Time: ~20-30 mins</span>
+                            <span><i class="fa-solid fa-route text-slate-400 dark:text-slate-500 mr-1.5"></i> Distance: ~15 km</span>
+                        </div>
+
+                        <!-- Item 3 -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">10:00 AM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100"><a href="https://www.google.com/maps/search/?api=1&query=Hat+Yai+International+Airport" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 underline decoration-slate-300 dark:decoration-slate-600 underline-offset-2">Hat Yai International Airport (HDY)</a> <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Hat Yai</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Airport departure check-in (Last Stop before Flight)</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-plane text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Flight Time: 1h 15m</span>
+                        </div>
+
+                        <!-- Item 4 -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">12:10 PM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100">Thai AirAsia Flight (HDY -> KUL) <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Flight</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Inbound flight back to Kuala Lumpur</p>
+                            </div>
+                        </div>
+
+                        <!-- Transition -->
+                        <div class="flex flex-wrap items-center justify-center my-1 text-xs text-slate-600 dark:text-slate-300 bg-emerald-50/80 dark:bg-emerald-900/40 border border-emerald-100 dark:border-emerald-800/60 rounded-lg py-2 px-4 gap-4">
+                            <span><i class="fa-solid fa-flag-checkered text-emerald-600 dark:text-emerald-400 mr-1.5"></i> Trip Completed</span>
+                        </div>
+
+                        <!-- Item 5 -->
+                        <div class="flex gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60">
+                            <div class="w-24 text-sm font-bold text-emerald-700 dark:text-emerald-400 shrink-0">02:25 PM</div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-slate-900 dark:text-slate-100">KLIA Terminal 2 (KUL) <span class="text-xs font-normal text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-700 px-2 py-0.5 rounded border dark:border-slate-600 ml-2">Sepang</span></div>
+                                <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Arrive back in Kuala Lumpur. End of trip.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE CHECKLIST -->
+            <div id="page-checklist" class="page-content space-y-3 hidden">
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100 border-b dark:border-slate-700 pb-3 mb-4 flex items-center justify-between">
+                        <span><i class="fa-solid fa-list-check text-emerald-600 dark:text-emerald-400 mr-2"></i> Hat Yai Trip Checklist &#127890;</span>
+                        <span class="text-xs font-normal text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700 px-2.5 py-1 rounded-md">Essential Prep</span>
+                    </h2>
+                    
+                    <div class="space-y-3">
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60 flex items-start gap-3">
+                            <input type="checkbox" id="chk-1" class="mt-1 w-4 h-4 text-emerald-600 dark:text-emerald-500 rounded border-slate-300 dark:border-slate-600 dark:bg-slate-700 focus:ring-emerald-500 cursor-pointer">
+                            <label for="chk-1" class="text-sm text-slate-700 dark:text-slate-300 cursor-pointer flex-1">
+                                <strong class="text-slate-900 dark:text-slate-100 block">Valid Passport</strong>
+                                Ensure at least 6 months validity from travel date (16 September 2026).
+                            </label>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60 flex items-start gap-3">
+                            <input type="checkbox" id="chk-2" class="mt-1 w-4 h-4 text-emerald-600 dark:text-emerald-500 rounded border-slate-300 dark:border-slate-600 dark:bg-slate-700 focus:ring-emerald-500 cursor-pointer">
+                            <label for="chk-2" class="text-sm text-slate-700 dark:text-slate-300 cursor-pointer flex-1">
+                                <strong class="text-slate-900 dark:text-slate-100 block">Thai Baht & Cards</strong>
+                                Prepare cash (Baht) for night markets, street food stalls, and small shops where cards aren't accepted.
+                            </label>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60 flex items-start gap-3">
+                            <input type="checkbox" id="chk-3" class="mt-1 w-4 h-4 text-emerald-600 dark:text-emerald-500 rounded border-slate-300 dark:border-slate-600 dark:bg-slate-700 focus:ring-emerald-500 cursor-pointer">
+                            <label for="chk-3" class="text-sm text-slate-700 dark:text-slate-300 cursor-pointer flex-1">
+                                <strong class="text-slate-900 dark:text-slate-100 block">Grab App & eSIM / Roaming</strong>
+                                Set up Grab app with payment method linked for seamless transport, and activate roaming or eSIM data.
+                            </label>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60 flex items-start gap-3">
+                            <input type="checkbox" id="chk-4" class="mt-1 w-4 h-4 text-emerald-600 dark:text-emerald-500 rounded border-slate-300 dark:border-slate-600 dark:bg-slate-700 focus:ring-emerald-500 cursor-pointer">
+                            <label for="chk-4" class="text-sm text-slate-700 dark:text-slate-300 cursor-pointer flex-1">
+                                <strong class="text-slate-900 dark:text-slate-100 block">Comfortable Shoes & Clothes</strong>
+                                Lightweight clothes for warm tropical weather and comfortable footwear for exploring markets and temples.
+                            </label>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60 flex items-start gap-3">
+                            <input type="checkbox" id="chk-5" class="mt-1 w-4 h-4 text-emerald-600 dark:text-emerald-500 rounded border-slate-300 dark:border-slate-600 dark:bg-slate-700 focus:ring-emerald-500 cursor-pointer">
+                            <label for="chk-5" class="text-sm text-slate-700 dark:text-slate-300 cursor-pointer flex-1">
+                                <strong class="text-slate-900 dark:text-slate-100 block">Power Bank & Universal Adapter</strong>
+                                Keep devices charged throughout long days of navigation, photos, and translations.
+                            </label>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60 flex items-start gap-3">
+                            <input type="checkbox" id="chk-6" class="mt-1 w-4 h-4 text-emerald-600 dark:text-emerald-500 rounded border-slate-300 dark:border-slate-600 dark:bg-slate-700 focus:ring-emerald-500 cursor-pointer">
+                            <label for="chk-6" class="text-sm text-slate-700 dark:text-slate-300 cursor-pointer flex-1">
+                                <strong class="text-slate-900 dark:text-slate-100 block">Medications & Insect Repellent</strong>
+                                Diarrhea medicine, Actifast, Dad's eye drops, Dad's Glivec, Dad's other meds, Cool Fever, and mosquito repellent.
+                            </label>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-600/60 flex items-start gap-3">
+                            <input type="checkbox" id="chk-7" class="mt-1 w-4 h-4 text-emerald-600 dark:text-emerald-500 rounded border-slate-300 dark:border-slate-600 dark:bg-slate-700 focus:ring-emerald-500 cursor-pointer">
+                            <label for="chk-7" class="text-sm text-slate-700 dark:text-slate-300 cursor-pointer flex-1">
+                                <strong class="text-slate-900 dark:text-slate-100 block">Portable Fans</strong>
+                                Handheld or neck fans to stay cool during outdoor markets and walking tours.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Thailand Vibes Popup Modal -->
+    <div id="thailand-popup" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-gradient-to-br from-emerald-600 via-teal-700 to-amber-600 text-white p-6 rounded-2xl shadow-2xl max-w-sm w-full mx-4 border border-white/20 transform scale-95 transition-transform duration-300 text-center relative overflow-hidden">
+            <div class="absolute -right-6 -top-6 text-white/10 text-8xl font-bold pointer-events-none">&#127481;&#127469;</div>
+            <div id="popup-emojis" class="text-3xl mb-2">&#127481;&#127469; &#128762; &#129381; &#127836;</div>
+            <h3 id="popup-title" class="text-xl font-bold mb-1">Sawadeekap! &#128591;</h3>
+            <p id="popup-message" class="text-emerald-100 text-sm mb-4 font-medium">It's Day 1! Get ready for your Hat Yai adventure &#127796;</p>
+            <button onclick="closePopup()" class="bg-white text-emerald-800 font-semibold px-5 py-2 rounded-xl text-sm shadow hover:bg-emerald-50 transition-all cursor-pointer">Let's Go! &#127481;&#127469;</button>
+        </div>
+    </div>
+
+    <script>
+        // Dark Mode Toggle Logic
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            const icon = document.getElementById('theme-icon');
+            if (document.documentElement.classList.contains('dark')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        }
+
+        const dayPopups = {
+            1: {
+                emojis: "&#127481;&#127469; &#9992;&#65039; &#128762; &#129381; &#129408;",
+                title: "Sawadeekap! &#128591; (Arrival Day)",
+                message: "Touch down in Hat Yai! Time to check in at W3 Hotel, savor Suki and Crab Fried Rice, and explore Asean Night Market! &#127769;&#10024; &#128762;"
+            },
+            2: {
+                emojis: "&#127481;&#127469; &#127836; &#9749;&#65039; &#128762; &#128024;",
+                title: "Noodles & Culture Day! &#127836;",
+                message: "Savor traditional noodles at Cheng Long, chill at Copperwood Cafe, admire the 35m Reclining Buddha, and shop at Greenway Night Market! &#128717;&#65039; &#129381;"
+            },
+            3: {
+                emojis: "&#127481;&#127469; &#128758; &#129381; &#129372; &#127796;",
+                title: "Floating Market Vibes! &#128758;",
+                message: "Snack your way through Kim Yong Market, enjoy delicious beef & pork noodles, and try boat noodles at Klong Hae Floating Market! &#129381;&#127796; &#127836;"
+            },
+            4: {
+                emojis: "&#127481;&#127469; &#128717;&#65039; &#127838; &#128591; &#129389;",
+                title: "Temples & Shopping! &#128717;&#65039;",
+                message: "Visit Wat Khok Saman Khun, explore Central Festival, treat yourself to After You toasts, and load up on snacks at Big C Extra! &#128722; &#10024;"
+            },
+            5: {
+                emojis: "&#127481;&#127469; &#9749;&#65039; &#9992;&#65039; &#127474;&#127486; &#128762;",
+                title: "Morning Market & Departure! &#9992;&#65039;",
+                message: "Grab breakfast at Chue Chang Morning Market, check out from W3 Hotel, and catch your flight back to Kuala Lumpur safely! &#128747; &#128591;"
+            },
+            checklist: {
+                emojis: "&#127481;&#127469; &#127890; &#128203; &#128095; &#10024;",
+                title: "Trip Checklist! &#10024;",
+                message: "Make sure you've ticked off all your travel essentials before heading out for your Hat Yai trip! &#129381; &#128762;"
+            }
+        };
+
+        function enterItinerary() {
+            const welcome = document.getElementById('welcome-screen');
+            welcome.classList.add('opacity-0');
+            setTimeout(() => {
+                welcome.classList.add('hidden');
+            }, 300);
+        }
+
+        function switchPage(pageNum) {
+            document.querySelectorAll('.page-content').forEach(el => {
+                el.classList.add('hidden');
+            });
+            document.getElementById('page-' + pageNum).classList.remove('hidden');
+
+            document.querySelectorAll('.page-tab').forEach(tab => {
+                // Remove active classes (both light and dark modes)
+                tab.classList.remove('bg-white', 'text-emerald-800', 'shadow', 'dark:bg-slate-800', 'dark:text-emerald-400');
+                // Add inactive classes
+                tab.classList.add('bg-emerald-800/50', 'text-white', 'hover:bg-emerald-800/80');
+            });
+
+            const activeTab = document.querySelector(`[data-page="${pageNum}"]`);
+            // Remove inactive classes
+            activeTab.classList.remove('bg-emerald-800/50', 'text-white', 'hover:bg-emerald-800/80');
+            // Add active classes (both light and dark modes)
+            activeTab.classList.add('bg-white', 'text-emerald-800', 'shadow', 'dark:bg-slate-800', 'dark:text-emerald-400');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            showPopup(pageNum);
+        }
+
+        function showPopup(pageNum) {
+            const popup = document.getElementById('thailand-popup');
+            const data = dayPopups[pageNum] || dayPopups[1];
+            
+            document.getElementById('popup-emojis').innerHTML = data.emojis;
+            document.getElementById('popup-title').innerHTML = data.title;
+            document.getElementById('popup-message').innerHTML = data.message;
+
+            popup.classList.remove('hidden');
+            setTimeout(() => {
+                popup.classList.remove('opacity-0');
+                popup.querySelector('.transform').classList.remove('scale-95');
+                popup.querySelector('.transform').classList.add('scale-100');
+            }, 10);
+        }
+
+        function closePopup() {
+            const popup = document.getElementById('thailand-popup');
+            popup.classList.add('opacity-0');
+            popup.querySelector('.transform').classList.remove('scale-100');
+            popup.querySelector('.transform').classList.add('scale-95');
+            setTimeout(() => {
+                popup.classList.add('hidden');
+            }, 300);
+        }
+
+        function updateCountdown() {
+            const tripDate = new Date('2026-09-16T00:00:00');
+            const now = new Date();
+            const diff = tripDate - now;
+
+            if (diff <= 0) {
+                document.getElementById('countdown-timer').innerHTML = '<span class="text-emerald-200 font-semibold px-2">Trip has started / Today! &#127481;&#127469;</span>';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('cd-days').innerText = String(days).padStart(2, '0');
+            document.getElementById('cd-hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('cd-mins').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('cd-secs').innerText = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
